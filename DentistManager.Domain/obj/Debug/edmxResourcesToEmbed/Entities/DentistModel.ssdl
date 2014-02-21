@@ -1,0 +1,465 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DentistModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ActivePatient">
+    <Key>
+      <PropertyRef Name="PatientID" />
+      <PropertyRef Name="DoctorID" />
+      <PropertyRef Name="ClinicID" />
+    </Key>
+    <Property Name="PatientID" Type="int" Nullable="false" />
+    <Property Name="DoctorID" Type="int" Nullable="false" />
+    <Property Name="ClinicID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Appointments">
+    <Key>
+      <PropertyRef Name="AppointmentID" />
+    </Key>
+    <Property Name="AppointmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="date" />
+    <Property Name="Time" Type="time" Precision="7" />
+    <Property Name="DoctorID" Type="int" />
+    <Property Name="PatientID" Type="int" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="500" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+    <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clinics">
+    <Key>
+      <PropertyRef Name="ClinicID" />
+    </Key>
+    <Property Name="ClinicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CustomMaterial">
+    <Key>
+      <PropertyRef Name="CustomMaterialID" />
+    </Key>
+    <Property Name="CustomMaterialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestDate" Type="date" />
+    <Property Name="ReciveDate" Type="date" />
+    <Property Name="PatientID" Type="int" />
+    <Property Name="Cost" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="DoctorID" Type="int" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Doctors">
+    <Key>
+      <PropertyRef Name="DoctorID" />
+    </Key>
+    <Property Name="DoctorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+    <Property Name="Age" Type="int" />
+    <Property Name="BrithDate" Type="date" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
+    <Property Name="E-mail" Type="nvarchar" MaxLength="100" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="ImageCategory">
+    <Key>
+      <PropertyRef Name="ImageCategoryID" />
+    </Key>
+    <Property Name="ImageCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="Images">
+    <Key>
+      <PropertyRef Name="ImageID" />
+    </Key>
+    <Property Name="ImageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Notice" Type="nvarchar" MaxLength="50" />
+    <Property Name="appointmentID" Type="int" />
+    <Property Name="ImageCategoryID" Type="int" />
+    <Property Name="PatientID" Type="int" />
+    <Property Name="FullImageURL" Type="nvarchar" MaxLength="500" />
+    <Property Name="MediumImageURL" Type="nvarchar" MaxLength="500" />
+    <Property Name="MinImageURL" Type="nvarchar" MaxLength="500" />
+    <Property Name="LocalImageURL" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Material">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemName" Type="nvarchar" MaxLength="700" Nullable="false" />
+    <Property Name="PartNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="CatID" Type="int" />
+    <Property Name="ProdCompany" Type="int" />
+    <Property Name="ScaleType" Type="nvarchar" MaxLength="30" />
+    <Property Name="ReOrder" Type="int" />
+    <Property Name="Note" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="MaterialTreatment">
+    <Key>
+      <PropertyRef Name="TeratmentID" />
+      <PropertyRef Name="MaterialID" />
+    </Key>
+    <Property Name="TeratmentID" Type="int" Nullable="false" />
+    <Property Name="MaterialID" Type="int" Nullable="false" />
+    <Property Name="Amonut" Type="float" />
+    <Property Name="MaterialCost" Type="decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="opperation">
+    <Key>
+      <PropertyRef Name="OpperationID" />
+    </Key>
+    <Property Name="OpperationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Color" Type="nvarchar" MaxLength="50" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="MaterialID" Type="int" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="PatientID" />
+    </Key>
+    <Property Name="PatientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="Age" Type="int" />
+    <Property Name="BrithDate" Type="date" />
+    <Property Name="gender" Type="nvarchar" MaxLength="50" />
+    <Property Name="E-mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="Notice" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PatientHistory">
+    <Key>
+      <PropertyRef Name="HistoryID" />
+    </Key>
+    <Property Name="HistoryID" Type="int" Nullable="false" />
+    <Property Name="PatientID" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Descripation" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="PatientPayment">
+    <Key>
+      <PropertyRef Name="PatientPaymentID" />
+    </Key>
+    <Property Name="PatientPaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PatientID" Type="int" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="PaidAmount" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ClinicID" Type="int" />
+  </EntityType>
+  <EntityType Name="PaymentReceipt">
+    <Key>
+      <PropertyRef Name="ReceiptID" />
+    </Key>
+    <Property Name="ReceiptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="date" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="PatientPaymentID" Type="int" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="50" />
+    <Property Name="ClinicID" Type="int" />
+  </EntityType>
+  <EntityType Name="Prescriptions">
+    <Key>
+      <PropertyRef Name="PrescriptionID" />
+    </Key>
+    <Property Name="PrescriptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Notice" Type="nvarchar" MaxLength="500" />
+    <Property Name="MedicineID" Type="int" />
+    <Property Name="PatientID" Type="int" />
+    <Property Name="AppointmentID" Type="int" />
+  </EntityType>
+  <EntityType Name="RecivingItems">
+    <Key>
+      <PropertyRef Name="ReciveID" />
+    </Key>
+    <Property Name="ReciveID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemID" Type="int" />
+    <Property Name="SuppID" Type="int" />
+    <Property Name="Amount" Type="int" />
+    <Property Name="ExpireDate" Type="date" />
+    <Property Name="ReciveDate" Type="date" />
+    <Property Name="StorageID" Type="int" />
+    <Property Name="Recived" Type="bit" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Note" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Secretary">
+    <Key>
+      <PropertyRef Name="SecretaryID" />
+    </Key>
+    <Property Name="SecretaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+    <Property Name="BrithDate" Type="date" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="E-mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Storages">
+    <Key>
+      <PropertyRef Name="StorageID" />
+    </Key>
+    <Property Name="StorageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="ClinicID" Type="int" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="suppcontact">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="SuppId" Type="int" />
+    <Property Name="ContactName" Type="nvarchar" MaxLength="70" />
+    <Property Name="ContactTitel" Type="nvarchar" MaxLength="30" />
+    <Property Name="ContactDep" Type="nvarchar" MaxLength="30" />
+    <Property Name="City" Type="nvarchar" MaxLength="30" />
+    <Property Name="PhoneExt" Type="nvarchar" MaxLength="10" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
+    <Property Name="EMail" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="suppliers">
+    <Key>
+      <PropertyRef Name="SuppID" />
+    </Key>
+    <Property Name="SuppID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="70" />
+    <Property Name="City" Type="nvarchar" MaxLength="30" />
+    <Property Name="Countery" Type="nvarchar" MaxLength="30" />
+    <Property Name="Phone1" Type="nvarchar" MaxLength="20" />
+    <Property Name="Phone2" Type="nvarchar" MaxLength="20" />
+    <Property Name="Fax" Type="nvarchar" MaxLength="20" />
+    <Property Name="WebSite" Type="nvarchar" MaxLength="70" />
+    <Property Name="TaxFileNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="TaxCommision" Type="nvarchar" MaxLength="50" />
+    <Property Name="TaxRegNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+    <Property Name="openbalance" Type="numeric" Precision="19" Scale="2" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Treatment">
+    <Key>
+      <PropertyRef Name="TeratmentID" />
+    </Key>
+    <Property Name="TeratmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="AppointmentID" Type="int" />
+    <Property Name="DoctorID" Type="int" />
+    <Property Name="PatientID" Type="int" />
+    <Property Name="OpperationID" Type="int" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="ClienicID" Type="int" />
+  </EntityType>
+  <EntityType Name="Warehouse">
+    <Key>
+      <PropertyRef Name="WarehouseID" />
+    </Key>
+    <Property Name="WarehouseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StorageID" Type="int" />
+    <Property Name="ItemID" Type="int" />
+    <Property Name="Available" Type="int" />
+    <Property Name="Reserved" Type="int" />
+    <Property Name="Total" Type="int" StoreGeneratedPattern="Computed" />
+    <Property Name="CostPrice" Type="decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="suppcontact_ibfk_1">
+    <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1" />
+    <End Role="suppcontact" Type="Self.suppcontact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="SuppID" />
+      </Principal>
+      <Dependent Role="suppcontact">
+        <PropertyRef Name="SuppId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DentistModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ActivePatient" EntityType="Self.ActivePatient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Appointments" EntityType="Self.Appointments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clinics" EntityType="Self.Clinics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomMaterial" EntityType="Self.CustomMaterial" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Doctors" EntityType="Self.Doctors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ImageCategory" EntityType="Self.ImageCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MaterialTreatment" EntityType="Self.MaterialTreatment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="opperation" EntityType="Self.opperation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PatientHistory" EntityType="Self.PatientHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PatientPayment" EntityType="Self.PatientPayment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentReceipt" EntityType="Self.PaymentReceipt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prescriptions" EntityType="Self.Prescriptions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RecivingItems" EntityType="Self.RecivingItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Secretary" EntityType="Self.Secretary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Storages" EntityType="Self.Storages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="suppcontact" EntityType="Self.suppcontact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Treatment" EntityType="Self.Treatment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="suppcontact_ibfk_1" Association="Self.suppcontact_ibfk_1">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="suppcontact" EntitySet="suppcontact" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

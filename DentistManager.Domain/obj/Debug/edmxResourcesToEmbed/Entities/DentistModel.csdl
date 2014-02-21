@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DentistModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ActivePatient">
+    <Key>
+      <PropertyRef Name="PatientID" />
+      <PropertyRef Name="DoctorID" />
+      <PropertyRef Name="ClinicID" />
+    </Key>
+    <Property Name="PatientID" Type="Int32" Nullable="false" />
+    <Property Name="DoctorID" Type="Int32" Nullable="false" />
+    <Property Name="ClinicID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Appointment">
+    <Key>
+      <PropertyRef Name="AppointmentID" />
+    </Key>
+    <Property Name="AppointmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Time" Type="Time" Precision="7" />
+    <Property Name="DoctorID" Type="Int32" />
+    <Property Name="PatientID" Type="Int32" />
+    <Property Name="Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="User_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+    </Key>
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="Clinic">
+    <Key>
+      <PropertyRef Name="ClinicID" />
+    </Key>
+    <Property Name="ClinicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="CustomMaterial">
+    <Key>
+      <PropertyRef Name="CustomMaterialID" />
+    </Key>
+    <Property Name="CustomMaterialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestDate" Type="DateTime" Precision="0" />
+    <Property Name="ReciveDate" Type="DateTime" Precision="0" />
+    <Property Name="PatientID" Type="Int32" />
+    <Property Name="Cost" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="DoctorID" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="DoctorID" />
+    </Key>
+    <Property Name="DoctorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="BrithDate" Type="DateTime" Precision="0" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="E_mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="ImageCategory">
+    <Key>
+      <PropertyRef Name="ImageCategoryID" />
+    </Key>
+    <Property Name="ImageCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="ImageID" />
+    </Key>
+    <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Notice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="appointmentID" Type="Int32" />
+    <Property Name="ImageCategoryID" Type="Int32" />
+    <Property Name="PatientID" Type="Int32" />
+    <Property Name="FullImageURL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MediumImageURL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MinImageURL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="LocalImageURL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Material">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemName" Type="String" MaxLength="700" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PartNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CatID" Type="Int32" />
+    <Property Name="ProdCompany" Type="Int32" />
+    <Property Name="ScaleType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="ReOrder" Type="Int32" />
+    <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MaterialTreatment">
+    <Key>
+      <PropertyRef Name="TeratmentID" />
+      <PropertyRef Name="MaterialID" />
+    </Key>
+    <Property Name="TeratmentID" Type="Int32" Nullable="false" />
+    <Property Name="MaterialID" Type="Int32" Nullable="false" />
+    <Property Name="Amonut" Type="Double" />
+    <Property Name="MaterialCost" Type="Decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="opperation">
+    <Key>
+      <PropertyRef Name="OpperationID" />
+    </Key>
+    <Property Name="OpperationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="MaterialID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="PatientID" />
+    </Key>
+    <Property Name="PatientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="BrithDate" Type="DateTime" Precision="0" />
+    <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="E_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Notice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PatientHistory">
+    <Key>
+      <PropertyRef Name="HistoryID" />
+    </Key>
+    <Property Name="HistoryID" Type="Int32" Nullable="false" />
+    <Property Name="PatientID" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Descripation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PatientPayment">
+    <Key>
+      <PropertyRef Name="PatientPaymentID" />
+    </Key>
+    <Property Name="PatientPaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientID" Type="Int32" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="PaidAmount" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ClinicID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="PaymentReceipt">
+    <Key>
+      <PropertyRef Name="ReceiptID" />
+    </Key>
+    <Property Name="ReceiptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Amount" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="PatientPaymentID" Type="Int32" />
+    <Property Name="UserID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ClinicID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Prescription">
+    <Key>
+      <PropertyRef Name="PrescriptionID" />
+    </Key>
+    <Property Name="PrescriptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Notice" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MedicineID" Type="Int32" />
+    <Property Name="PatientID" Type="Int32" />
+    <Property Name="AppointmentID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="RecivingItem">
+    <Key>
+      <PropertyRef Name="ReciveID" />
+    </Key>
+    <Property Name="ReciveID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemID" Type="Int32" />
+    <Property Name="SuppID" Type="Int32" />
+    <Property Name="Amount" Type="Int32" />
+    <Property Name="ExpireDate" Type="DateTime" Precision="0" />
+    <Property Name="ReciveDate" Type="DateTime" Precision="0" />
+    <Property Name="StorageID" Type="Int32" />
+    <Property Name="Recived" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Secretary">
+    <Key>
+      <PropertyRef Name="SecretaryID" />
+    </Key>
+    <Property Name="SecretaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BrithDate" Type="DateTime" Precision="0" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="E_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Storage">
+    <Key>
+      <PropertyRef Name="StorageID" />
+    </Key>
+    <Property Name="StorageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ClinicID" Type="Int32" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="suppcontact">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="SuppId" Type="Int32" />
+    <Property Name="ContactName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="ContactTitel" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="ContactDep" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneExt" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EMail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="supplier" Relationship="Self.suppcontact_ibfk_1" FromRole="suppcontact" ToRole="suppliers" />
+  </EntityType>
+  <EntityType Name="supplier">
+    <Key>
+      <PropertyRef Name="SuppID" />
+    </Key>
+    <Property Name="SuppID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Countery" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Phone1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Phone2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="WebSite" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="TaxFileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TaxCommision" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TaxRegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="openbalance" Type="Decimal" Precision="19" Scale="2" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="suppcontacts" Relationship="Self.suppcontact_ibfk_1" FromRole="suppliers" ToRole="suppcontact" />
+  </EntityType>
+  <EntityType Name="Treatment">
+    <Key>
+      <PropertyRef Name="TeratmentID" />
+    </Key>
+    <Property Name="TeratmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="AppointmentID" Type="Int32" />
+    <Property Name="DoctorID" Type="Int32" />
+    <Property Name="PatientID" Type="Int32" />
+    <Property Name="OpperationID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="ClienicID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Warehouse">
+    <Key>
+      <PropertyRef Name="WarehouseID" />
+    </Key>
+    <Property Name="WarehouseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StorageID" Type="Int32" />
+    <Property Name="ItemID" Type="Int32" />
+    <Property Name="Available" Type="Int32" />
+    <Property Name="Reserved" Type="Int32" />
+    <Property Name="Total" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="CostPrice" Type="Decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="suppcontact_ibfk_1">
+    <End Role="suppliers" Type="Self.supplier" Multiplicity="0..1" />
+    <End Role="suppcontact" Type="Self.suppcontact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="SuppID" />
+      </Principal>
+      <Dependent Role="suppcontact">
+        <PropertyRef Name="SuppId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="ActivePatients" EntityType="Self.ActivePatient" />
+    <EntitySet Name="Appointments" EntityType="Self.Appointment" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+    <EntitySet Name="Clinics" EntityType="Self.Clinic" />
+    <EntitySet Name="CustomMaterials" EntityType="Self.CustomMaterial" />
+    <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+    <EntitySet Name="ImageCategories" EntityType="Self.ImageCategory" />
+    <EntitySet Name="Images" EntityType="Self.Image" />
+    <EntitySet Name="Materials" EntityType="Self.Material" />
+    <EntitySet Name="MaterialTreatments" EntityType="Self.MaterialTreatment" />
+    <EntitySet Name="opperations" EntityType="Self.opperation" />
+    <EntitySet Name="Patients" EntityType="Self.Patient" />
+    <EntitySet Name="PatientHistories" EntityType="Self.PatientHistory" />
+    <EntitySet Name="PatientPayments" EntityType="Self.PatientPayment" />
+    <EntitySet Name="PaymentReceipts" EntityType="Self.PaymentReceipt" />
+    <EntitySet Name="Prescriptions" EntityType="Self.Prescription" />
+    <EntitySet Name="RecivingItems" EntityType="Self.RecivingItem" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Secretaries" EntityType="Self.Secretary" />
+    <EntitySet Name="Storages" EntityType="Self.Storage" />
+    <EntitySet Name="suppcontacts" EntityType="Self.suppcontact" />
+    <EntitySet Name="suppliers" EntityType="Self.supplier" />
+    <EntitySet Name="Treatments" EntityType="Self.Treatment" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="Warehouses" EntityType="Self.Warehouse" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="suppcontact_ibfk_1" Association="Self.suppcontact_ibfk_1">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="suppcontact" EntitySet="suppcontacts" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

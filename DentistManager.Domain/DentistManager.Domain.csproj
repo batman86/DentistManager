@@ -48,7 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Common\GeneratRandomValue.cs" />
+    <Compile Include="Common\Hashing.cs" />
     <Compile Include="DAL\Abstract\ItestRepository.cs" />
     <Compile Include="DAL\Concrete\testRepository.cs" />
     <Compile Include="Entities\ActivePatient.cs">
@@ -182,7 +183,6 @@
   <ItemGroup>
     <Folder Include="BL\Abstract\" />
     <Folder Include="BL\Concrete\" />
-    <Folder Include="Common\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

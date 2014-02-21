@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DentistManager.DentistUI", "DentistManager.DentistUI\DentistManager.DentistUI.csproj", "{70986276-62F2-497B-824E-B234640BDFE1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B2A7B0B8-878D-41A1-B816-C18F783DB9C6} = {B2A7B0B8-878D-41A1-B816-C18F783DB9C6}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DentistManager.Domain", "DentistManager.Domain\DentistManager.Domain.csproj", "{B2A7B0B8-878D-41A1-B816-C18F783DB9C6}"
 EndProject

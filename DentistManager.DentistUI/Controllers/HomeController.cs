@@ -9,14 +9,13 @@ namespace DentistManager.DentistUI.Controllers
 {
     public class HomeController : Controller
     {
-        ItestRepository testRepository;
-        public HomeController(ItestRepository _testRepository)
+
+        public HomeController()
         {
-            testRepository = _testRepository;
+
         }
         public ActionResult Index()
         {
-            ViewBag.text1 = testRepository.GetTesting();
             return View();
         }
 

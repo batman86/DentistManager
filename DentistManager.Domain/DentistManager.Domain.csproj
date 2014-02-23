@@ -50,8 +50,10 @@
   <ItemGroup>
     <Compile Include="Common\GeneratRandomValue.cs" />
     <Compile Include="Common\Hashing.cs" />
-    <Compile Include="DAL\Abstract\ItestRepository.cs" />
-    <Compile Include="DAL\Concrete\testRepository.cs" />
+    <Compile Include="DAL\Abstract\IPatientRepository.cs" />
+    <Compile Include="DAL\Abstract\IPrescription.cs" />
+    <Compile Include="DAL\Concrete\PatientRepository.cs" />
+    <Compile Include="DAL\Concrete\Prescription.cs" />
     <Compile Include="Entities\ActivePatient.cs">
       <DependentUpon>DentistModel.tt</DependentUpon>
     </Compile>

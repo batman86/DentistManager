@@ -32,7 +32,6 @@ namespace DentistManager.DentistUI.DependencyResolution {
                                         scan.WithDefaultConventions();
                                     });
 
-                            x.For<ItestRepository>().Use<testRepository>();
 
 
 

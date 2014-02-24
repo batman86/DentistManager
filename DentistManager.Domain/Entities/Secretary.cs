@@ -15,7 +15,7 @@ namespace DentistManager.Domain.Entities
     public partial class Secretary
     {
         public int SecretaryID { get; set; }
-        public Nullable<int> UserID { get; set; }
+        public string UserID { get; set; }
         public string Name { get; set; }
         public string Gender { get; set; }
         public Nullable<System.DateTime> BrithDate { get; set; }
@@ -24,5 +24,7 @@ namespace DentistManager.Domain.Entities
         public string Address { get; set; }
         public string E_mail { get; set; }
         public Nullable<bool> Active { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

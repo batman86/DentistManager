@@ -10,16 +10,6 @@
     <Property Name="Model" Type="varbinary(max)" Nullable="false" />
     <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
   </EntityType>
-  <EntityType Name="ActivePatient">
-    <Key>
-      <PropertyRef Name="PatientID" />
-      <PropertyRef Name="DoctorID" />
-      <PropertyRef Name="ClinicID" />
-    </Key>
-    <Property Name="PatientID" Type="int" Nullable="false" />
-    <Property Name="DoctorID" Type="int" Nullable="false" />
-    <Property Name="ClinicID" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="Appointments">
     <Key>
       <PropertyRef Name="AppointmentID" />
@@ -30,6 +20,7 @@
     <Property Name="DoctorID" Type="int" />
     <Property Name="PatientID" Type="int" />
     <Property Name="Reason" Type="nvarchar" MaxLength="500" />
+    <Property Name="ClinicID" Type="int" />
     <Property Name="Status" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="AspNetRoles">
@@ -104,7 +95,7 @@
       <PropertyRef Name="DoctorID" />
     </Key>
     <Property Name="DoctorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserID" Type="int" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" />
     <Property Name="Name" Type="nvarchar" MaxLength="100" />
     <Property Name="Gender" Type="nvarchar" MaxLength="50" />
     <Property Name="Age" Type="int" />
@@ -161,6 +152,15 @@
     <Property Name="Amonut" Type="float" />
     <Property Name="MaterialCost" Type="decimal" Precision="18" Scale="4" />
   </EntityType>
+  <EntityType Name="Medicine">
+    <Key>
+      <PropertyRef Name="MedicineID" />
+    </Key>
+    <Property Name="MedicineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SideEffectDecsription" Type="nvarchar" MaxLength="300" />
+    <Property Name="Unit" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="opperation">
     <Key>
       <PropertyRef Name="OpperationID" />
@@ -203,7 +203,8 @@
     <Property Name="PatientID" Type="int" />
     <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="4" />
     <Property Name="PaidAmount" Type="decimal" Precision="18" Scale="4" />
-    <Property Name="ClinicID" Type="int" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClinicID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="PaymentReceipt">
     <Key>
@@ -213,7 +214,7 @@
     <Property Name="Date" Type="date" />
     <Property Name="Amount" Type="decimal" Precision="18" Scale="4" />
     <Property Name="PatientPaymentID" Type="int" />
-    <Property Name="UserID" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" />
     <Property Name="ClinicID" Type="int" />
   </EntityType>
   <EntityType Name="Prescriptions">
@@ -224,6 +225,8 @@
     <Property Name="Notice" Type="nvarchar" MaxLength="500" />
     <Property Name="MedicineID" Type="int" />
     <Property Name="PatientID" Type="int" />
+    <Property Name="DoctorID" Type="int" />
+    <Property Name="Dose" Type="float" />
     <Property Name="AppointmentID" Type="int" />
   </EntityType>
   <EntityType Name="RecivingItems">
@@ -239,20 +242,12 @@
     <Property Name="StorageID" Type="int" />
     <Property Name="Recived" Type="bit" />
   </EntityType>
-  <EntityType Name="Roles">
-    <Key>
-      <PropertyRef Name="RoleID" />
-    </Key>
-    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" />
-    <Property Name="Note" Type="nvarchar" MaxLength="50" />
-  </EntityType>
   <EntityType Name="Secretary">
     <Key>
       <PropertyRef Name="SecretaryID" />
     </Key>
     <Property Name="SecretaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserID" Type="int" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="Gender" Type="nvarchar" MaxLength="50" />
     <Property Name="BrithDate" Type="date" />
@@ -261,6 +256,23 @@
     <Property Name="Address" Type="nvarchar" MaxLength="50" />
     <Property Name="E-mail" Type="nvarchar" MaxLength="50" />
     <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="SessionsStats">
+    <Key>
+      <PropertyRef Name="SessionID" />
+    </Key>
+    <Property Name="SessionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="SessionName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SessionValues">
+    <Key>
+      <PropertyRef Name="ValueID" />
+    </Key>
+    <Property Name="ValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SessionID" Type="int" />
+    <Property Name="SessionValue" Type="nvarchar(max)" />
+    <Property Name="PrortyName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Storages">
     <Key>
@@ -309,6 +321,16 @@
     <Property Name="openbalance" Type="numeric" Precision="19" Scale="2" />
     <Property Name="Type" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="Treatment">
     <Key>
       <PropertyRef Name="TeratmentID" />
@@ -319,16 +341,6 @@
     <Property Name="DoctorID" Type="int" />
     <Property Name="PatientID" Type="int" />
     <Property Name="OpperationID" Type="int" />
-  </EntityType>
-  <EntityType Name="Users">
-    <Key>
-      <PropertyRef Name="UserID" />
-    </Key>
-    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
-    <Property Name="Password" Type="nvarchar" MaxLength="50" />
-    <Property Name="RoleID" Type="int" />
-    <Property Name="ClienicID" Type="int" />
   </EntityType>
   <EntityType Name="Warehouse">
     <Key>
@@ -342,6 +354,54 @@
     <Property Name="Total" Type="int" StoreGeneratedPattern="Computed" />
     <Property Name="CostPrice" Type="decimal" Precision="18" Scale="4" />
   </EntityType>
+  <Association Name="FK_Appointments_Clinics">
+    <End Role="Clinics" Type="Self.Clinics" Multiplicity="0..1" />
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clinics">
+        <PropertyRef Name="ClinicID" />
+      </Principal>
+      <Dependent Role="Appointments">
+        <PropertyRef Name="ClinicID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Appointments_Doctors">
+    <End Role="Doctors" Type="Self.Doctors" Multiplicity="0..1" />
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctors">
+        <PropertyRef Name="DoctorID" />
+      </Principal>
+      <Dependent Role="Appointments">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Appointments_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="PatientID" />
+      </Principal>
+      <Dependent Role="Appointments">
+        <PropertyRef Name="PatientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomMaterial_Doctors">
+    <End Role="Doctors" Type="Self.Doctors" Multiplicity="0..1" />
+    <End Role="CustomMaterial" Type="Self.CustomMaterial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctors">
+        <PropertyRef Name="DoctorID" />
+      </Principal>
+      <Dependent Role="CustomMaterial">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -398,6 +458,354 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Doctors_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Doctors">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Images_Appointments">
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="0..1" />
+    <End Role="Images" Type="Self.Images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointments">
+        <PropertyRef Name="AppointmentID" />
+      </Principal>
+      <Dependent Role="Images">
+        <PropertyRef Name="appointmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Images_ImageCategory">
+    <End Role="ImageCategory" Type="Self.ImageCategory" Multiplicity="0..1" />
+    <End Role="Images" Type="Self.Images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ImageCategory">
+        <PropertyRef Name="ImageCategoryID" />
+      </Principal>
+      <Dependent Role="Images">
+        <PropertyRef Name="ImageCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Images_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+    <End Role="Images" Type="Self.Images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="PatientID" />
+      </Principal>
+      <Dependent Role="Images">
+        <PropertyRef Name="PatientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MaterialTreatment_Material">
+    <End Role="Material" Type="Self.Material" Multiplicity="1" />
+    <End Role="MaterialTreatment" Type="Self.MaterialTreatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Material">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="MaterialTreatment">
+        <PropertyRef Name="MaterialID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MaterialTreatment_Treatment">
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="1" />
+    <End Role="MaterialTreatment" Type="Self.MaterialTreatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Treatment">
+        <PropertyRef Name="TeratmentID" />
+      </Principal>
+      <Dependent Role="MaterialTreatment">
+        <PropertyRef Name="TeratmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_opperation_Material">
+    <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+    <End Role="opperation" Type="Self.opperation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Material">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="opperation">
+        <PropertyRef Name="MaterialID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientHistory_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+    <End Role="PatientHistory" Type="Self.PatientHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="PatientID" />
+      </Principal>
+      <Dependent Role="PatientHistory">
+        <PropertyRef Name="PatientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientPayment_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="PatientPayment" Type="Self.PatientPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PatientPayment">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientPayment_Clinics">
+    <End Role="Clinics" Type="Self.Clinics" Multiplicity="1" />
+    <End Role="PatientPayment" Type="Self.PatientPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clinics">
+        <PropertyRef Name="ClinicID" />
+      </Principal>
+      <Dependent Role="PatientPayment">
+        <PropertyRef Name="ClinicID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientPayment_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+    <End Role="PatientPayment" Type="Self.PatientPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="PatientID" />
+      </Principal>
+      <Dependent Role="PatientPayment">
+        <PropertyRef Name="PatientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PaymentReceipt_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="PaymentReceipt" Type="Self.PaymentReceipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PaymentReceipt">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PaymentReceipt_Clinics">
+    <End Role="Clinics" Type="Self.Clinics" Multiplicity="0..1" />
+    <End Role="PaymentReceipt" Type="Self.PaymentReceipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clinics">
+        <PropertyRef Name="ClinicID" />
+      </Principal>
+      <Dependent Role="PaymentReceipt">
+        <PropertyRef Name="ClinicID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PaymentReceipt_PatientPayment">
+    <End Role="PatientPayment" Type="Self.PatientPayment" Multiplicity="0..1" />
+    <End Role="PaymentReceipt" Type="Self.PaymentReceipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PatientPayment">
+        <PropertyRef Name="PatientPaymentID" />
+      </Principal>
+      <Dependent Role="PaymentReceipt">
+        <PropertyRef Name="PatientPaymentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prescriptions_Appointments">
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="0..1" />
+    <End Role="Prescriptions" Type="Self.Prescriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointments">
+        <PropertyRef Name="AppointmentID" />
+      </Principal>
+      <Dependent Role="Prescriptions">
+        <PropertyRef Name="AppointmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prescriptions_Doctors">
+    <End Role="Doctors" Type="Self.Doctors" Multiplicity="0..1" />
+    <End Role="Prescriptions" Type="Self.Prescriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctors">
+        <PropertyRef Name="DoctorID" />
+      </Principal>
+      <Dependent Role="Prescriptions">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prescriptions_Medicine">
+    <End Role="Medicine" Type="Self.Medicine" Multiplicity="0..1" />
+    <End Role="Prescriptions" Type="Self.Prescriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medicine">
+        <PropertyRef Name="MedicineID" />
+      </Principal>
+      <Dependent Role="Prescriptions">
+        <PropertyRef Name="MedicineID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Prescriptions_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+    <End Role="Prescriptions" Type="Self.Prescriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="PatientID" />
+      </Principal>
+      <Dependent Role="Prescriptions">
+        <PropertyRef Name="PatientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecivingItems_Material">
+    <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+    <End Role="RecivingItems" Type="Self.RecivingItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Material">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="RecivingItems">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecivingItems_Storages">
+    <End Role="Storages" Type="Self.Storages" Multiplicity="0..1" />
+    <End Role="RecivingItems" Type="Self.RecivingItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Storages">
+        <PropertyRef Name="StorageID" />
+      </Principal>
+      <Dependent Role="RecivingItems">
+        <PropertyRef Name="StorageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecivingItems_suppliers">
+    <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1" />
+    <End Role="RecivingItems" Type="Self.RecivingItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="suppliers">
+        <PropertyRef Name="SuppID" />
+      </Principal>
+      <Dependent Role="RecivingItems">
+        <PropertyRef Name="SuppID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Secretary_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Secretary" Type="Self.Secretary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Secretary">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SessionValues_SessionsStats">
+    <End Role="SessionsStats" Type="Self.SessionsStats" Multiplicity="0..1" />
+    <End Role="SessionValues" Type="Self.SessionValues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SessionsStats">
+        <PropertyRef Name="SessionID" />
+      </Principal>
+      <Dependent Role="SessionValues">
+        <PropertyRef Name="SessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Storages_Clinics">
+    <End Role="Clinics" Type="Self.Clinics" Multiplicity="0..1" />
+    <End Role="Storages" Type="Self.Storages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clinics">
+        <PropertyRef Name="ClinicID" />
+      </Principal>
+      <Dependent Role="Storages">
+        <PropertyRef Name="ClinicID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Treatment_Appointments">
+    <End Role="Appointments" Type="Self.Appointments" Multiplicity="0..1" />
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointments">
+        <PropertyRef Name="AppointmentID" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="AppointmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Treatment_Doctors">
+    <End Role="Doctors" Type="Self.Doctors" Multiplicity="0..1" />
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctors">
+        <PropertyRef Name="DoctorID" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Treatment_opperation">
+    <End Role="opperation" Type="Self.opperation" Multiplicity="0..1" />
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="opperation">
+        <PropertyRef Name="OpperationID" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="OpperationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Warehouse_Material">
+    <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+    <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Material">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="Warehouse">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Warehouse_Storages">
+    <End Role="Storages" Type="Self.Storages" Multiplicity="0..1" />
+    <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Storages">
+        <PropertyRef Name="StorageID" />
+      </Principal>
+      <Dependent Role="Warehouse">
+        <PropertyRef Name="StorageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="suppcontact_ibfk_1">
     <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1" />
     <End Role="suppcontact" Type="Self.suppcontact" Multiplicity="*" />
@@ -412,7 +820,6 @@
   </Association>
   <EntityContainer Name="DentistModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ActivePatient" EntityType="Self.ActivePatient" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Appointments" EntityType="Self.Appointments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -426,6 +833,7 @@
     <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MaterialTreatment" EntityType="Self.MaterialTreatment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Medicine" EntityType="Self.Medicine" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="opperation" EntityType="Self.opperation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PatientHistory" EntityType="Self.PatientHistory" Schema="dbo" store:Type="Tables" />
@@ -433,14 +841,31 @@
     <EntitySet Name="PaymentReceipt" EntityType="Self.PaymentReceipt" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Prescriptions" EntityType="Self.Prescriptions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RecivingItems" EntityType="Self.RecivingItems" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Secretary" EntityType="Self.Secretary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SessionsStats" EntityType="Self.SessionsStats" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SessionValues" EntityType="Self.SessionValues" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Storages" EntityType="Self.Storages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="suppcontact" EntityType="Self.suppcontact" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Treatment" EntityType="Self.Treatment" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Appointments_Clinics" Association="Self.FK_Appointments_Clinics">
+      <End Role="Clinics" EntitySet="Clinics" />
+      <End Role="Appointments" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Appointments_Doctors" Association="Self.FK_Appointments_Doctors">
+      <End Role="Doctors" EntitySet="Doctors" />
+      <End Role="Appointments" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Appointments_Patient" Association="Self.FK_Appointments_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="Appointments" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomMaterial_Doctors" Association="Self.FK_CustomMaterial_Doctors">
+      <End Role="Doctors" EntitySet="Doctors" />
+      <End Role="CustomMaterial" EntitySet="CustomMaterial" />
+    </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_User_Id">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -456,6 +881,122 @@
     <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctors_AspNetUsers" Association="Self.FK_Doctors_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Doctors" EntitySet="Doctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Images_Appointments" Association="Self.FK_Images_Appointments">
+      <End Role="Appointments" EntitySet="Appointments" />
+      <End Role="Images" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Images_ImageCategory" Association="Self.FK_Images_ImageCategory">
+      <End Role="ImageCategory" EntitySet="ImageCategory" />
+      <End Role="Images" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Images_Patient" Association="Self.FK_Images_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="Images" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MaterialTreatment_Material" Association="Self.FK_MaterialTreatment_Material">
+      <End Role="Material" EntitySet="Material" />
+      <End Role="MaterialTreatment" EntitySet="MaterialTreatment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MaterialTreatment_Treatment" Association="Self.FK_MaterialTreatment_Treatment">
+      <End Role="Treatment" EntitySet="Treatment" />
+      <End Role="MaterialTreatment" EntitySet="MaterialTreatment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_opperation_Material" Association="Self.FK_opperation_Material">
+      <End Role="Material" EntitySet="Material" />
+      <End Role="opperation" EntitySet="opperation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientHistory_Patient" Association="Self.FK_PatientHistory_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="PatientHistory" EntitySet="PatientHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientPayment_AspNetUsers" Association="Self.FK_PatientPayment_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="PatientPayment" EntitySet="PatientPayment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientPayment_Clinics" Association="Self.FK_PatientPayment_Clinics">
+      <End Role="Clinics" EntitySet="Clinics" />
+      <End Role="PatientPayment" EntitySet="PatientPayment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientPayment_Patient" Association="Self.FK_PatientPayment_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="PatientPayment" EntitySet="PatientPayment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PaymentReceipt_AspNetUsers" Association="Self.FK_PaymentReceipt_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="PaymentReceipt" EntitySet="PaymentReceipt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PaymentReceipt_Clinics" Association="Self.FK_PaymentReceipt_Clinics">
+      <End Role="Clinics" EntitySet="Clinics" />
+      <End Role="PaymentReceipt" EntitySet="PaymentReceipt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PaymentReceipt_PatientPayment" Association="Self.FK_PaymentReceipt_PatientPayment">
+      <End Role="PatientPayment" EntitySet="PatientPayment" />
+      <End Role="PaymentReceipt" EntitySet="PaymentReceipt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prescriptions_Appointments" Association="Self.FK_Prescriptions_Appointments">
+      <End Role="Appointments" EntitySet="Appointments" />
+      <End Role="Prescriptions" EntitySet="Prescriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prescriptions_Doctors" Association="Self.FK_Prescriptions_Doctors">
+      <End Role="Doctors" EntitySet="Doctors" />
+      <End Role="Prescriptions" EntitySet="Prescriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prescriptions_Medicine" Association="Self.FK_Prescriptions_Medicine">
+      <End Role="Medicine" EntitySet="Medicine" />
+      <End Role="Prescriptions" EntitySet="Prescriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Prescriptions_Patient" Association="Self.FK_Prescriptions_Patient">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="Prescriptions" EntitySet="Prescriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecivingItems_Material" Association="Self.FK_RecivingItems_Material">
+      <End Role="Material" EntitySet="Material" />
+      <End Role="RecivingItems" EntitySet="RecivingItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecivingItems_Storages" Association="Self.FK_RecivingItems_Storages">
+      <End Role="Storages" EntitySet="Storages" />
+      <End Role="RecivingItems" EntitySet="RecivingItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecivingItems_suppliers" Association="Self.FK_RecivingItems_suppliers">
+      <End Role="suppliers" EntitySet="suppliers" />
+      <End Role="RecivingItems" EntitySet="RecivingItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Secretary_AspNetUsers" Association="Self.FK_Secretary_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Secretary" EntitySet="Secretary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SessionValues_SessionsStats" Association="Self.FK_SessionValues_SessionsStats">
+      <End Role="SessionsStats" EntitySet="SessionsStats" />
+      <End Role="SessionValues" EntitySet="SessionValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Storages_Clinics" Association="Self.FK_Storages_Clinics">
+      <End Role="Clinics" EntitySet="Clinics" />
+      <End Role="Storages" EntitySet="Storages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Treatment_Appointments" Association="Self.FK_Treatment_Appointments">
+      <End Role="Appointments" EntitySet="Appointments" />
+      <End Role="Treatment" EntitySet="Treatment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Treatment_Doctors" Association="Self.FK_Treatment_Doctors">
+      <End Role="Doctors" EntitySet="Doctors" />
+      <End Role="Treatment" EntitySet="Treatment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Treatment_opperation" Association="Self.FK_Treatment_opperation">
+      <End Role="opperation" EntitySet="opperation" />
+      <End Role="Treatment" EntitySet="Treatment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Warehouse_Material" Association="Self.FK_Warehouse_Material">
+      <End Role="Material" EntitySet="Material" />
+      <End Role="Warehouse" EntitySet="Warehouse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Warehouse_Storages" Association="Self.FK_Warehouse_Storages">
+      <End Role="Storages" EntitySet="Storages" />
+      <End Role="Warehouse" EntitySet="Warehouse" />
     </AssociationSet>
     <AssociationSet Name="suppcontact_ibfk_1" Association="Self.suppcontact_ibfk_1">
       <End Role="suppliers" EntitySet="suppliers" />

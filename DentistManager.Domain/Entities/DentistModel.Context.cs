@@ -26,7 +26,6 @@ namespace DentistManager.Domain.Entities
         }
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<ActivePatient> ActivePatients { get; set; }
         public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
@@ -39,6 +38,7 @@ namespace DentistManager.Domain.Entities
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
         public virtual DbSet<MaterialTreatment> MaterialTreatments { get; set; }
+        public virtual DbSet<Medicine> Medicines { get; set; }
         public virtual DbSet<opperation> opperations { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<PatientHistory> PatientHistories { get; set; }
@@ -46,13 +46,14 @@ namespace DentistManager.Domain.Entities
         public virtual DbSet<PaymentReceipt> PaymentReceipts { get; set; }
         public virtual DbSet<Prescription> Prescriptions { get; set; }
         public virtual DbSet<RecivingItem> RecivingItems { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Secretary> Secretaries { get; set; }
+        public virtual DbSet<SessionsStat> SessionsStats { get; set; }
+        public virtual DbSet<SessionValue> SessionValues { get; set; }
         public virtual DbSet<Storage> Storages { get; set; }
         public virtual DbSet<suppcontact> suppcontacts { get; set; }
         public virtual DbSet<supplier> suppliers { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Treatment> Treatments { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
     }
 }

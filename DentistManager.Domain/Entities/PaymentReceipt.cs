@@ -20,5 +20,9 @@ namespace DentistManager.Domain.Entities
         public Nullable<int> PatientPaymentID { get; set; }
         public string UserID { get; set; }
         public Nullable<int> ClinicID { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Clinic Clinic { get; set; }
+        public virtual PatientPayment PatientPayment { get; set; }
     }
 }

@@ -11,15 +11,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ActivePatients">
-      <EntityTypeMapping TypeName="DentistModel.ActivePatient">
-        <MappingFragment StoreEntitySet="ActivePatient">
-          <ScalarProperty Name="PatientID" ColumnName="PatientID" />
-          <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
-          <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Appointments">
       <EntityTypeMapping TypeName="DentistModel.Appointment">
         <MappingFragment StoreEntitySet="Appointments">
@@ -29,6 +20,7 @@
           <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
           <ScalarProperty Name="PatientID" ColumnName="PatientID" />
           <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
           <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -162,6 +154,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Medicines">
+      <EntityTypeMapping TypeName="DentistModel.Medicine">
+        <MappingFragment StoreEntitySet="Medicine">
+          <ScalarProperty Name="MedicineID" ColumnName="MedicineID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SideEffectDecsription" ColumnName="SideEffectDecsription" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="opperations">
       <EntityTypeMapping TypeName="DentistModel.opperation">
         <MappingFragment StoreEntitySet="opperation">
@@ -206,6 +208,7 @@
           <ScalarProperty Name="PatientID" ColumnName="PatientID" />
           <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
           <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -229,6 +232,8 @@
           <ScalarProperty Name="Notice" ColumnName="Notice" />
           <ScalarProperty Name="MedicineID" ColumnName="MedicineID" />
           <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+          <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+          <ScalarProperty Name="Dose" ColumnName="Dose" />
           <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -247,15 +252,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Roles">
-      <EntityTypeMapping TypeName="DentistModel.Role">
-        <MappingFragment StoreEntitySet="Roles">
-          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Note" ColumnName="Note" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Secretaries">
       <EntityTypeMapping TypeName="DentistModel.Secretary">
         <MappingFragment StoreEntitySet="Secretary">
@@ -269,6 +265,25 @@
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="E_mail" ColumnName="E-mail" />
           <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SessionsStats">
+      <EntityTypeMapping TypeName="DentistModel.SessionsStat">
+        <MappingFragment StoreEntitySet="SessionsStats">
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="SessionName" ColumnName="SessionName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SessionValues">
+      <EntityTypeMapping TypeName="DentistModel.SessionValue">
+        <MappingFragment StoreEntitySet="SessionValues">
+          <ScalarProperty Name="ValueID" ColumnName="ValueID" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="SessionValue1" ColumnName="SessionValue" />
+          <ScalarProperty Name="PrortyName" ColumnName="PrortyName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -322,6 +337,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="DentistModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Treatments">
       <EntityTypeMapping TypeName="DentistModel.Treatment">
         <MappingFragment StoreEntitySet="Treatment">
@@ -331,17 +357,6 @@
           <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
           <ScalarProperty Name="PatientID" ColumnName="PatientID" />
           <ScalarProperty Name="OpperationID" ColumnName="OpperationID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="DentistModel.User">
-        <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-          <ScalarProperty Name="ClienicID" ColumnName="ClienicID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

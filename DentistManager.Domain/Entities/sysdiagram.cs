@@ -12,10 +12,12 @@ namespace DentistManager.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class ActivePatient
+    public partial class sysdiagram
     {
-        public int PatientID { get; set; }
-        public int DoctorID { get; set; }
-        public int ClinicID { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

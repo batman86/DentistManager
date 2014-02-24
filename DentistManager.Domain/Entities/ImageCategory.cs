@@ -14,8 +14,15 @@ namespace DentistManager.Domain.Entities
     
     public partial class ImageCategory
     {
+        public ImageCategory()
+        {
+            this.Images = new HashSet<Image>();
+        }
+    
         public int ImageCategoryID { get; set; }
         public string Name { get; set; }
         public Nullable<decimal> Price { get; set; }
+    
+        public virtual ICollection<Image> Images { get; set; }
     }
 }

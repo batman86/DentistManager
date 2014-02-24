@@ -14,6 +14,15 @@ namespace DentistManager.Domain.Entities
     
     public partial class Patient
     {
+        public Patient()
+        {
+            this.Appointments = new HashSet<Appointment>();
+            this.Images = new HashSet<Image>();
+            this.PatientHistories = new HashSet<PatientHistory>();
+            this.PatientPayments = new HashSet<PatientPayment>();
+            this.Prescriptions = new HashSet<Prescription>();
+        }
+    
         public int PatientID { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
@@ -24,5 +33,11 @@ namespace DentistManager.Domain.Entities
         public string gender { get; set; }
         public string E_mail { get; set; }
         public string Notice { get; set; }
+    
+        public virtual ICollection<Appointment> Appointments { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
+        public virtual ICollection<PatientHistory> PatientHistories { get; set; }
+        public virtual ICollection<PatientPayment> PatientPayments { get; set; }
+        public virtual ICollection<Prescription> Prescriptions { get; set; }
     }
 }

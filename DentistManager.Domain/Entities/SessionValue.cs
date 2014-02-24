@@ -12,10 +12,13 @@ namespace DentistManager.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class SessionValue
     {
-        public int RoleID { get; set; }
-        public string Name { get; set; }
-        public string Note { get; set; }
+        public int ValueID { get; set; }
+        public Nullable<int> SessionID { get; set; }
+        public string SessionValue1 { get; set; }
+        public string PrortyName { get; set; }
+    
+        public virtual SessionsStat SessionsStat { get; set; }
     }
 }

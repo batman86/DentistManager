@@ -14,6 +14,12 @@ namespace DentistManager.Domain.Entities
     
     public partial class Storage
     {
+        public Storage()
+        {
+            this.RecivingItems = new HashSet<RecivingItem>();
+            this.Warehouses = new HashSet<Warehouse>();
+        }
+    
         public int StorageID { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
@@ -21,5 +27,9 @@ namespace DentistManager.Domain.Entities
         public string Mobile { get; set; }
         public Nullable<int> ClinicID { get; set; }
         public Nullable<bool> Active { get; set; }
+    
+        public virtual Clinic Clinic { get; set; }
+        public virtual ICollection<RecivingItem> RecivingItems { get; set; }
+        public virtual ICollection<Warehouse> Warehouses { get; set; }
     }
 }

@@ -54,9 +54,6 @@
     <Compile Include="DAL\Abstract\IPrescription.cs" />
     <Compile Include="DAL\Concrete\PatientRepository.cs" />
     <Compile Include="DAL\Concrete\Prescription.cs" />
-    <Compile Include="Entities\ActivePatient.cs">
-      <DependentUpon>DentistModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Appointment.cs">
       <DependentUpon>DentistModel.tt</DependentUpon>
     </Compile>
@@ -111,6 +108,9 @@
     <Compile Include="Entities\MaterialTreatment.cs">
       <DependentUpon>DentistModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Medicine.cs">
+      <DependentUpon>DentistModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\opperation.cs">
       <DependentUpon>DentistModel.tt</DependentUpon>
     </Compile>
@@ -132,10 +132,13 @@
     <Compile Include="Entities\RecivingItem.cs">
       <DependentUpon>DentistModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Role.cs">
+    <Compile Include="Entities\Secretary.cs">
       <DependentUpon>DentistModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Secretary.cs">
+    <Compile Include="Entities\SessionsStat.cs">
+      <DependentUpon>DentistModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\SessionValue.cs">
       <DependentUpon>DentistModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Storage.cs">
@@ -147,10 +150,10 @@
     <Compile Include="Entities\supplier.cs">
       <DependentUpon>DentistModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Treatment.cs">
+    <Compile Include="Entities\sysdiagram.cs">
       <DependentUpon>DentistModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\User.cs">
+    <Compile Include="Entities\Treatment.cs">
       <DependentUpon>DentistModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Warehouse.cs">

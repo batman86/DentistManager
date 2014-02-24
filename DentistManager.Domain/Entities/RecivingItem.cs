@@ -22,5 +22,9 @@ namespace DentistManager.Domain.Entities
         public Nullable<System.DateTime> ReciveDate { get; set; }
         public Nullable<int> StorageID { get; set; }
         public Nullable<bool> Recived { get; set; }
+    
+        public virtual Material Material { get; set; }
+        public virtual Storage Storage { get; set; }
+        public virtual supplier supplier { get; set; }
     }
 }

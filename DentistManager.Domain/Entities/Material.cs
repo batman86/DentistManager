@@ -14,6 +14,14 @@ namespace DentistManager.Domain.Entities
     
     public partial class Material
     {
+        public Material()
+        {
+            this.MaterialTreatments = new HashSet<MaterialTreatment>();
+            this.opperations = new HashSet<opperation>();
+            this.RecivingItems = new HashSet<RecivingItem>();
+            this.Warehouses = new HashSet<Warehouse>();
+        }
+    
         public int ItemID { get; set; }
         public string ItemName { get; set; }
         public string PartNumber { get; set; }
@@ -22,5 +30,10 @@ namespace DentistManager.Domain.Entities
         public string ScaleType { get; set; }
         public Nullable<int> ReOrder { get; set; }
         public string Note { get; set; }
+    
+        public virtual ICollection<MaterialTreatment> MaterialTreatments { get; set; }
+        public virtual ICollection<opperation> opperations { get; set; }
+        public virtual ICollection<RecivingItem> RecivingItems { get; set; }
+        public virtual ICollection<Warehouse> Warehouses { get; set; }
     }
 }

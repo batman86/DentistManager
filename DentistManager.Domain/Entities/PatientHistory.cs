@@ -18,5 +18,7 @@ namespace DentistManager.Domain.Entities
         public Nullable<int> PatientID { get; set; }
         public string Name { get; set; }
         public string Descripation { get; set; }
+    
+        public virtual Patient Patient { get; set; }
     }
 }

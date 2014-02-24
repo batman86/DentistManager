@@ -14,10 +14,18 @@ namespace DentistManager.Domain.Entities
     
     public partial class opperation
     {
+        public opperation()
+        {
+            this.Treatments = new HashSet<Treatment>();
+        }
+    
         public int OpperationID { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<int> MaterialID { get; set; }
+    
+        public virtual Material Material { get; set; }
+        public virtual ICollection<Treatment> Treatments { get; set; }
     }
 }

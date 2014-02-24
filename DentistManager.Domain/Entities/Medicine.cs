@@ -12,12 +12,18 @@ namespace DentistManager.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Medicine
     {
-        public int UserID { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public Nullable<int> RoleID { get; set; }
-        public Nullable<int> ClienicID { get; set; }
+        public Medicine()
+        {
+            this.Prescriptions = new HashSet<Prescription>();
+        }
+    
+        public int MedicineID { get; set; }
+        public string Name { get; set; }
+        public string SideEffectDecsription { get; set; }
+        public string Unit { get; set; }
+    
+        public virtual ICollection<Prescription> Prescriptions { get; set; }
     }
 }

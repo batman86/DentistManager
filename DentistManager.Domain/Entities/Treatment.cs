@@ -14,11 +14,21 @@ namespace DentistManager.Domain.Entities
     
     public partial class Treatment
     {
+        public Treatment()
+        {
+            this.MaterialTreatments = new HashSet<MaterialTreatment>();
+        }
+    
         public int TeratmentID { get; set; }
         public string Description { get; set; }
         public Nullable<int> AppointmentID { get; set; }
         public Nullable<int> DoctorID { get; set; }
         public Nullable<int> PatientID { get; set; }
         public Nullable<int> OpperationID { get; set; }
+    
+        public virtual Appointment Appointment { get; set; }
+        public virtual Doctor Doctor { get; set; }
+        public virtual ICollection<MaterialTreatment> MaterialTreatments { get; set; }
+        public virtual opperation opperation { get; set; }
     }
 }

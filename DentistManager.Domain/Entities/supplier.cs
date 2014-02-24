@@ -16,6 +16,7 @@ namespace DentistManager.Domain.Entities
     {
         public supplier()
         {
+            this.RecivingItems = new HashSet<RecivingItem>();
             this.suppcontacts = new HashSet<suppcontact>();
         }
     
@@ -35,6 +36,7 @@ namespace DentistManager.Domain.Entities
         public Nullable<decimal> openbalance { get; set; }
         public string Type { get; set; }
     
+        public virtual ICollection<RecivingItem> RecivingItems { get; set; }
         public virtual ICollection<suppcontact> suppcontacts { get; set; }
     }
 }

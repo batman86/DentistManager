@@ -14,10 +14,23 @@ namespace DentistManager.Domain.Entities
     
     public partial class Clinic
     {
+        public Clinic()
+        {
+            this.Appointments = new HashSet<Appointment>();
+            this.PatientPayments = new HashSet<PatientPayment>();
+            this.PaymentReceipts = new HashSet<PaymentReceipt>();
+            this.Storages = new HashSet<Storage>();
+        }
+    
         public int ClinicID { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Mobile { get; set; }
+    
+        public virtual ICollection<Appointment> Appointments { get; set; }
+        public virtual ICollection<PatientPayment> PatientPayments { get; set; }
+        public virtual ICollection<PaymentReceipt> PaymentReceipts { get; set; }
+        public virtual ICollection<Storage> Storages { get; set; }
     }
 }

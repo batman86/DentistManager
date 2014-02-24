@@ -18,6 +18,13 @@ namespace DentistManager.Domain.Entities
         public string Notice { get; set; }
         public Nullable<int> MedicineID { get; set; }
         public Nullable<int> PatientID { get; set; }
+        public Nullable<int> DoctorID { get; set; }
+        public Nullable<double> Dose { get; set; }
         public Nullable<int> AppointmentID { get; set; }
+    
+        public virtual Appointment Appointment { get; set; }
+        public virtual Doctor Doctor { get; set; }
+        public virtual Medicine Medicine { get; set; }
+        public virtual Patient Patient { get; set; }
     }
 }

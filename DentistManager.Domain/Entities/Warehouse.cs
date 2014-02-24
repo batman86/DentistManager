@@ -21,5 +21,8 @@ namespace DentistManager.Domain.Entities
         public Nullable<int> Reserved { get; set; }
         public Nullable<int> Total { get; set; }
         public Nullable<decimal> CostPrice { get; set; }
+    
+        public virtual Material Material { get; set; }
+        public virtual Storage Storage { get; set; }
     }
 }

@@ -14,12 +14,27 @@ namespace DentistManager.Domain.Entities
     
     public partial class Appointment
     {
+        public Appointment()
+        {
+            this.Images = new HashSet<Image>();
+            this.Prescriptions = new HashSet<Prescription>();
+            this.Treatments = new HashSet<Treatment>();
+        }
+    
         public int AppointmentID { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<System.TimeSpan> Time { get; set; }
         public Nullable<int> DoctorID { get; set; }
         public Nullable<int> PatientID { get; set; }
         public string Reason { get; set; }
+        public Nullable<int> ClinicID { get; set; }
         public string Status { get; set; }
+    
+        public virtual Clinic Clinic { get; set; }
+        public virtual Doctor Doctor { get; set; }
+        public virtual Patient Patient { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
+        public virtual ICollection<Prescription> Prescriptions { get; set; }
+        public virtual ICollection<Treatment> Treatments { get; set; }
     }
 }

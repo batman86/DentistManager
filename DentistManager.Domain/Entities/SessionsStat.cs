@@ -12,14 +12,17 @@ namespace DentistManager.Domain.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class MaterialTreatment
+    public partial class SessionsStat
     {
-        public int TeratmentID { get; set; }
-        public int MaterialID { get; set; }
-        public Nullable<double> Amonut { get; set; }
-        public Nullable<decimal> MaterialCost { get; set; }
+        public SessionsStat()
+        {
+            this.SessionValues = new HashSet<SessionValue>();
+        }
     
-        public virtual Material Material { get; set; }
-        public virtual Treatment Treatment { get; set; }
+        public int SessionID { get; set; }
+        public Nullable<int> UserID { get; set; }
+        public string SessionName { get; set; }
+    
+        public virtual ICollection<SessionValue> SessionValues { get; set; }
     }
 }

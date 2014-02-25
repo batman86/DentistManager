@@ -18,7 +18,6 @@ E:\MVC\projects\DentistManager\DentistManager.Domain\bin\Debug\EntityFramework.S
 E:\MVC\projects\DentistManager\DentistManager.Domain\obj\Debug\DentistManager.Domain.csprojResolveAssemblyReference.cache
 E:\MVC\projects\DentistManager\DentistManager.Domain\obj\Debug\DentistManager.Domain.dll
 E:\MVC\projects\DentistManager\DentistManager.Domain\obj\Debug\DentistManager.Domain.pdb
-D:\work\Dentist\DentistManager\DentistManager\DentistManager.Domain\bin\Debug\DentistManager.Domain.dll.config
 D:\work\Dentist\DentistManager\DentistManager\DentistManager.Domain\bin\Debug\DentistManager.Domain.dll
 D:\work\Dentist\DentistManager\DentistManager\DentistManager.Domain\bin\Debug\DentistManager.Domain.pdb
 D:\work\Dentist\DentistManager\DentistManager\DentistManager.Domain\bin\Debug\EntityFramework.dll
